@@ -14,9 +14,7 @@ On top of Managed CockroachDB's built-in automation, you can use a third-party [
 
     {{site.data.alerts.callout_info}}Make sure you install <code>minikube</code> version 0.21.0 or later. Earlier versions do not include a Kubernetes server that supports the <code>maxUnavailability</code> field and <code>PodDisruptionBudget</code> resource type used in the CockroachDB StatefulSet configuration.{{site.data.alerts.end}}
 
-3. Build the sample Python application:
-
-    This tutorial uses the [sample To-Do app](https://github.com/cockroachdb/examples-python/tree/master/flask-sqlalchemy) application with Managed CockroachDB using [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/). Refer to the [Build a Python app with Managed CockroachDB](managed-build-a-python-app.html) tutorial to build the sample application.
+3. Build the sample Python application: This tutorial uses the [sample To-Do app](https://github.com/cockroachdb/examples-python/tree/master/flask-sqlalchemy) application with Managed CockroachDB using [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/). Refer to the [Build a Python app with Managed CockroachDB](managed-build-a-python-app.html) tutorial to build the sample application.
 
 ## Step 1: Start a local Kubernetes cluster
 
@@ -31,29 +29,21 @@ $ minikube start
 
     {% include copy-clipboard.html %}
     ~~~
-    # this is an official Python runtime, used as the parent image
     FROM python:3.7-slim
 
-    # set the working directory in the container to /app
     WORKDIR /app
 
-    # add the current directory to the container as /app
     ADD . /app
 
-    # execute everyone's favorite pip command, pip install -r
     RUN apt-get update && apt-get install -y libpq-dev gcc
     # need gcc to compile psycopg2
     RUN pip3 install psycopg2~=2.6
     RUN apt-get autoremove -y gcc
     RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
-
-    # unblock port 80 for the Flask app to run on
     EXPOSE 80
 
-    # execute the Flask app
     CMD ["python", "hello.py"]
-
     ~~~
 
 2. Set the environment variable:
@@ -78,6 +68,8 @@ $ minikube start
     ~~~
 
 ## Step 4: Create a Kubernetes secret
+
+Create a Kubernetes secret to store the CA certificate you downloaded while [generating the connection string](managed-build-a-python-app.html#step-3-generate-the-cockroachdb-client-connection-string) for the sample application:
 
 {% include copy-clipboard.html %}
 ~~~ shell
@@ -139,7 +131,7 @@ spec:
   type: LoadBalancer
 ~~~
 
-## Step 6: Run the `kubectl` commands
+## Step 6: Create the deployment with `kubectl`
 
 {% include copy-clipboard.html %}
 ~~~ shell
