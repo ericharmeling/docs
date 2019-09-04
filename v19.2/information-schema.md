@@ -355,4 +355,6 @@ Column | Description
 - [`SHOW DATABASES`](show-databases.html)
 - [`SHOW GRANTS`](show-grants.html)
 - [`SHOW INDEX`](show-index.html)
+- [`SHOW SCHEMAS`](show-schemas.html)
 - [`SHOW TABLES`](show-tables.html)
+- [Logical Schemas and Namespaces](sql-name-resolution.html#logical-schemas-and-namespaces)
