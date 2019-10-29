@@ -49,6 +49,17 @@
             ]
           },
           {
+            "title": "Build a Web Application",
+            "items": [
+              {
+                "title": "Flask and SQLAlchemy",
+                "urls": [
+                  "/${VERSION}/tutorials-sqlalchemy-movr.html"
+                ]
+              }
+            ]
+          },
+          {
             "title": "Build an App",
             "items": [
               {
